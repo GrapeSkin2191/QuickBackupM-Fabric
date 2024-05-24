@@ -6,6 +6,7 @@ import dev.skydynamic.quickbackupmulti.config.Config;
 
 import dev.skydynamic.quickbackupmulti.config.ConfigStorage;
 // import dev.skydynamic.quickbackupmulti.utils.filefilter.NonRecursiveDirFilter;
+import dev.skydynamic.quickbackupmulti.storage.BackupInfo;
 import dev.skydynamic.quickbackupmulti.storage.DimensionFormat;
 import dev.skydynamic.quickbackupmulti.storage.IndexFile;
 import net.fabricmc.api.EnvType;
@@ -183,6 +184,17 @@ public class QbmManager {
     }
 
     public static List<String> getBackupsList() {
+        List<File> fileList = new ArrayList<>(List.of(Objects.requireNonNull(getBackupDir().toFile().listFiles())));
+        fileList.sort((o1, o2) -> {
+            BackupInfo backupInfo1 = getDataBase().getSlotInfo(o1.getName());
+            BackupInfo backupInfo2 = getDataBase().getSlotInfo(o2.getName());
+            if (backupInfo1 == null) return 1;
+            if (backupInfo2 == null) return -1;
+            long diff = backupInfo1.getTimestamp() - backupInfo2.getTimestamp();
+            if (diff > 0) return 1;
+            else if (diff < 0) return -1;
+            else return 0;
+        });
         List<String> backupsDirList = new ArrayList<>();
         for (File file : Objects.requireNonNull(getBackupDir().toFile().listFiles())) {
             // if (file.isDirectory() && backupDir.resolve(file.getName()).toFile().exists() && backupDir.resolve(file.getName() + "_info.json").toFile().exists()) {
