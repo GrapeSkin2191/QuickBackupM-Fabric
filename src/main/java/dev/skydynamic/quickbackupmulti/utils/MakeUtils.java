@@ -27,10 +27,22 @@ public class MakeUtils {
 
     public static void copyFileAndMakeDirs(File destDir, File file) throws IOException {
         if (file.isDirectory()) {
-            if (!file.getParentFile().getName().equals(Config.TEMP_CONFIG.worldName)) new File(destDir, file.getName()).mkdirs();
+            if (!file.getParentFile().getName().equals(Config.TEMP_CONFIG.worldName))
+                new File(
+                        destDir,
+                        file.toString().substring(file.toString().lastIndexOf(Config.TEMP_CONFIG.worldName) + Config.TEMP_CONFIG.worldName.length() + 1)
+                ).mkdirs();
+//                new File(destDir, file.getName()).mkdirs();
         } else {
             if (!file.getParentFile().getName().equals(Config.TEMP_CONFIG.worldName)) {
-                File targetDir = new File(destDir, file.getParentFile().getName());
+                File targetDir = new File(
+                        destDir,
+                        file.toString().substring(
+                                file.toString().lastIndexOf(Config.TEMP_CONFIG.worldName) + Config.TEMP_CONFIG.worldName.length() + 1,
+                                file.toString().lastIndexOf(file.getName())
+                        )
+                );
+//                File targetDir = new File(destDir, file.getParentFile().getName());
                 targetDir.mkdirs();
                 FileUtils.copyFileToDirectory(file, targetDir);
             } else {
