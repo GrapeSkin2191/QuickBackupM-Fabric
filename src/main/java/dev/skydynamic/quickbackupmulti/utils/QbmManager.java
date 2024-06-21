@@ -6,6 +6,7 @@ import dev.skydynamic.quickbackupmulti.config.Config;
 
 import dev.skydynamic.quickbackupmulti.config.ConfigStorage;
 // import dev.skydynamic.quickbackupmulti.utils.filefilter.NonRecursiveDirFilter;
+import dev.skydynamic.quickbackupmulti.storage.BackupInfo;
 import dev.skydynamic.quickbackupmulti.storage.DimensionFormat;
 import dev.skydynamic.quickbackupmulti.storage.IndexFile;
 import net.fabricmc.api.EnvType;
