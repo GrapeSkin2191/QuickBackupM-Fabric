@@ -196,7 +196,7 @@ public class QbmManager {
             else return 0;
         });
         List<String> backupsDirList = new ArrayList<>();
-        for (File file : Objects.requireNonNull(getBackupDir().toFile().listFiles())) {
+        for (File file : fileList) {
             // if (file.isDirectory() && backupDir.resolve(file.getName()).toFile().exists() && backupDir.resolve(file.getName() + "_info.json").toFile().exists()) {
             if (file.isDirectory() && checkSlotExist(file.getName())) {
                 backupsDirList.add(file.getName());
